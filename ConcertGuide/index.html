@@ -239,7 +239,7 @@
 <body class="bg-gradient-to-br from-pink-100 via-purple-50 to-blue-100 min-h-screen font-sans">
 
     <!-- Background Music -->
-    <audio id="bgMusic" autoplay loop preload="auto">
+    <audio id="bgMusic" autoplay loop>
         <source src="春日影 - From THE FIRST TAKE [C3JSaR0kiRI].mp3" type="audio/mpeg">
     </audio>
 
@@ -251,9 +251,6 @@
         <div class="volume-control">
             <span class="volume-icon">🔊</span>
             <input type="range" id="volumeSlider" class="volume-slider" min="0" max="100" value="70">
-        </div>
-        <div id="autoplayHint" class="text-xs" style="color:white; margin-top:6px; display:none;">
-            點一下頁面任意處以播放音樂
         </div>
     </div>
 
@@ -803,51 +800,23 @@
 
         // Auto-play music on load
         let autoplayAttempted = false;
-        let gestureBound = false;
-
-        function removeGestureListeners(onGesture) {
-            document.removeEventListener('click', onGesture, true);
-            document.removeEventListener('touchstart', onGesture, true);
-            document.removeEventListener('pointerdown', onGesture, true);
-            document.removeEventListener('keydown', onGesture, true);
-            gestureBound = false;
-        }
-
-        function enableOnFirstGesture() {
-            if (gestureBound) return;
-            const hint = document.getElementById('autoplayHint');
-            if (hint) hint.style.display = 'inline';
-            function onGesture() {
-                if (bgMusic.paused && !autoplayAttempted) {
-                    bgMusic.play().then(() => {
-                        playPauseBtn.textContent = '⏸';
-                        autoplayAttempted = true;
-                        if (hint) hint.style.display = 'none';
-                        removeGestureListeners(onGesture);
-                    }).catch(() => {
-                        // keep hint visible; user may need to tap again on some browsers
-                    });
-                } else {
-                    if (hint) hint.style.display = 'none';
-                    removeGestureListeners(onGesture);
-                }
-            }
-            document.addEventListener('click', onGesture, true);
-            document.addEventListener('touchstart', onGesture, true);
-            document.addEventListener('pointerdown', onGesture, true);
-            document.addEventListener('keydown', onGesture, true);
-            gestureBound = true;
-        }
 
         function tryAutoPlay() {
             bgMusic.play().then(function () {
                 playPauseBtn.textContent = '⏸';
                 autoplayAttempted = true;
-                const hint = document.getElementById('autoplayHint');
-                if (hint) hint.style.display = 'none';
             }).catch(function () {
                 playPauseBtn.textContent = '▶';
-                if (!autoplayAttempted) enableOnFirstGesture();
+                // If autoplay blocked, play on first user interaction
+                if (!autoplayAttempted) {
+                    document.body.addEventListener('click', function () {
+                        if (bgMusic.paused && !autoplayAttempted) {
+                            bgMusic.play();
+                            playPauseBtn.textContent = '⏸';
+                            autoplayAttempted = true;
+                        }
+                    }, { once: true });
+                }
             });
         }
 
@@ -864,16 +833,6 @@
                 playPauseBtn.textContent = '▶';
             }
         });
-
-        // Basic error diagnostics
-        function showAudioError() {
-            console.error('背景音樂載入/播放失敗，可能是檔名或自動播放限制。');
-            const hint = document.getElementById('autoplayHint');
-            if (hint) hint.style.display = 'inline';
-        }
-        bgMusic.addEventListener('error', showAudioError);
-        const srcEl = bgMusic.querySelector('source');
-        if (srcEl) srcEl.addEventListener('error', showAudioError);
 
         // Volume control
         volumeSlider.addEventListener('input', function () {
