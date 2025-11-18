@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎵 演唱會門票取得指南 | Anon Taiwan</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#ec4899',
+                        secondary: '#8b5cf6',
+                        accent: '#f97316',
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.5s ease-in',
+                        'slide-in': 'slideIn 0.3s ease-out',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideIn: {
+                            '0%': { transform: 'translateX(-10px)', opacity: '0' },
+                            '100%': { transform: 'translateX(0)', opacity: '1' },
+                        },
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Custom styling for content elements */
+        main h2 {
+            font-size: 2.25rem;
+            font-weight: 800;
+            color: #7c3aed;
+            margin-bottom: 1.5rem;
+            margin-top: 3rem;
+            padding-bottom: 0.75rem;
+            padding-left: 1rem;
+            border-left: 8px solid #ec4899;
+        }
+
+        main h3 {
+            font-size: 1.875rem;
+            font-weight: 700;
+            color: #2563eb;
+            margin-bottom: 1.25rem;
+            margin-top: 2.5rem;
+        }
+
+        main h4 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #ec4899;
+            margin-bottom: 1rem;
+            margin-top: 2rem;
+        }
+
+        main p {
+            font-size: 1.125rem;
+            line-height: 1.75;
+            color: #1f2937;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        main strong {
+            font-weight: 800;
+            color: #be185d;
+        }
+
+        main ul {
+            list-style-type: disc;
+            list-style-position: inside;
+            margin-bottom: 1.5rem;
+            margin-left: 1rem;
+        }
+
+        main ul li {
+            font-size: 1.125rem;
+            color: #374151;
+            line-height: 1.75;
+            margin-top: 0.5rem;
+        }
+
+        main ul li::marker {
+            color: #ec4899;
+        }
+
+        main ol {
+            list-style-type: decimal;
+            list-style-position: inside;
+            margin-bottom: 1.5rem;
+            margin-left: 1rem;
+        }
+
+        main ol li {
+            font-size: 1.125rem;
+            color: #374151;
+            line-height: 1.75;
+            margin-top: 0.5rem;
+        }
+
+        main a {
+            color: #2563eb;
+            font-weight: 600;
+            text-decoration: underline;
+            text-decoration-thickness: 2px;
+            text-underline-offset: 2px;
+            transition: color 0.2s;
+        }
+
+        main a:hover {
+            color: #7c3aed;
+        }
+
+        main code {
+            background-color: #fdf2f8;
+            color: #be185d;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.875rem;
+            font-family: monospace;
+        }
+
+        main table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            border-radius: 0.5rem;
+            overflow: hidden;
+        }
+
+        main th {
+            background: linear-gradient(to right, #ec4899, #a855f7);
+            color: white;
+            font-weight: 700;
+            padding: 1.5rem;
+            text-align: left;
+        }
+
+        main td {
+            padding: 1.5rem;
+            border-bottom: 1px solid #fbcfe8;
+            color: #1f2937;
+        }
+
+        main tr:hover {
+            background-color: #fdf2f8;
+        }
+
+        /* Music Controls */
+        .music-controls {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 100;
+            background: linear-gradient(135deg, #ec4899, #8b5cf6);
+            padding: 15px 20px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(236, 72, 153, 0.4);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .music-btn {
+            background: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            color: #ec4899;
+            font-size: 18px;
+        }
+
+        .music-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .volume-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .volume-slider {
+            width: 100px;
+            height: 6px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.3);
+            outline: none;
+            -webkit-appearance: none;
+            cursor: pointer;
+        }
+
+        .volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: white;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .volume-slider::-moz-range-thumb {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: white;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .volume-icon {
+            color: white;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-pink-100 via-purple-50 to-blue-100 min-h-screen font-sans">
+
+    <!-- Background Music -->
+    <audio id="bgMusic" autoplay loop>
+        <source src="/春日影 - From THE FIRST TAKE [C3JSaR0kiRI].mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Music Controls -->
+    <div class="music-controls">
+        <button id="playPauseBtn" class="music-btn" title="播放/暫停">
+            ⏸
+        </button>
+        <div class="volume-control">
+            <span class="volume-icon">🔊</span>
+            <input type="range" id="volumeSlider" class="volume-slider" min="0" max="100" value="70">
+        </div>
+    </div>
+
+    <!-- Sidebar TOC -->
+    <aside
+        class="fixed left-0 top-0 bottom-0 w-80 bg-gradient-to-b from-pink-50 via-purple-50 to-blue-50 border-r-4 border-pink-300 shadow-2xl overflow-y-auto z-50 hidden lg:block">
+        <div class="p-6">
+            <div class="mb-6 pb-4 border-b-4 border-pink-500">
+                <h2
+                    class="text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-pink-600 to-purple-600 flex items-center gap-2">
+                    <span class="text-3xl">🎵</span>
+                    <span>目錄</span>
+                </h2>
+            </div>
+            <nav id="toc-list" class="space-y-1"></nav>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="lg:ml-80 min-h-screen">
+        <div class="max-w-5xl mx-auto px-6 lg:px-12 py-8 lg:py-12 prose prose-lg max-w-none">
+
+            <h1 id="1"
+                class="text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-pink-600 via-purple-600 to-blue-600 mb-8 pb-4 border-b-4 border-gradient-to-r from-pink-400 to-purple-400">
+                <strong>1. 演唱會門票取得 (抽票/收票)</strong>
+            </h1>
+            <h4 id=""><strong>流程主要分為以下四部分：</strong></h4>
+            <ul>
+                <li>最速先行抽選 </li>
+                <li>二次/三次抽選 </li>
+                <li>一般販售 </li>
+                <li>收票</li>
+            </ul>
+            <h2 id="11"><strong>1-1 如何抽選</strong></h2>
+            <h2 id="httpsbangdreamcomevents">演出時間、抽選詳情、專輯發售資訊等內容都可在<a href="https://bang-dream.com/events">企劃官網</a>上找到
+            </h2>
+            <h2 id="eplus"><strong>註冊 eplus</strong></h2>
+            <p>目前 eplus 的註冊一定需要一個日本手機門號。最簡單的方式就是在淘寶、露天、蝦皮或是脆上尋找相關的代註冊
+                (驗證)。每個手機號碼只能驗證一次，而邦邦目前是不需要進行二次驗證。所以代註冊服務是夠用的（<strong>僅限於邦邦</strong>）註冊的時候會需要給店家提供姓名，<strong>請一定要提供自己的實名資訊，需要跟證件的名字一樣查詢身分的時候才能確認本人</strong>。
+            </p>
+            <p><strong>養一個日本手機號</strong></p>
+            <p>IF Mobile<br />
+                ・申辦費用<br />
+                初期手續費：3,300 日圓<br />
+                卡片發行費：2,200 日圓<br />
+                使用費：每月最低上網方案（1GB）1,078 日圓，簡訊及通話費另計</p>
+            <p>優點<br />
+                1.可以在台灣撥打電話跟傳送簡訊<br />
+                2.申請容易，填好資料 + 上傳護照及手持護照自拍的照片即可<br />
+                3.sim 卡可以直接寄來台灣<br />
+                4.有中文客服！這點覺得是最大優勢<br />
+                客服經常在線，雖然不一定秒回但每天基本上都在</p>
+            <p>缺點<br />
+                一年內解約需要付違約金</p>
+            <p>HanaCell「一時帰国のジャパン SIM」<br />
+                ・申辦費用<br />
+                初期費用：69 美金<br />
+                網路使用費 3GB/月：無使用不計費，有使用的月份需支付 29 美元<br />
+                門號維護費：首年免費，之後每年 12 美金</p>
+            <p>優點</p>
+            <h2 id="1-1">1.每個月的費用較低</h2>
+            <p>2.申請容易 只需駕照<br />
+                3.可以直接寄來台灣</p>
+            <p>缺點<br />
+                需要到日本當地才使用</p>
+            <p>這裡列出主流的取得手機號方法<br />
+                其他取得日本手機號也可以參考<a
+                    href="https://docs.google.com/spreadsheets/u/0/d/1SW5YZFp319dpY7invz8jf_nlAZYpm212f3zPh4B819g/htmlview#gid=626412790">這份表單</a>
+            </p>
+            <h2 id="-1"><strong>開始抽選</strong></h2>
+            <p>註冊完成後，使用註冊用時「郵箱與密碼」，即可登入 eplus。<br />
+                以 MyGO!!!!! × Ave Mujica ツーマンライブ「“moment / memory”」為例：</p>
+            <ul>
+                <li>最速抽選券合同ライブ「わかれ道の、その先へ」Blu-ray 內 </li>
+                <li>會看到一組「抽選碼」與「網址」</li>
+            </ul>
+            <p>建議直接使用該網址或掃碼進入，不要自行進入 eplus 搜尋場次，以免選擇錯誤場次。</p>
+
+</body>
+</html>
