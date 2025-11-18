@@ -189,10 +189,6 @@
             font-size: 18px;
         }
 
-        .music-btn span {
-            pointer-events: none;
-        }
-
         .music-btn:hover {
             transform: scale(1.1);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
@@ -210,7 +206,6 @@
             border-radius: 10px;
             background: rgba(255, 255, 255, 0.3);
             outline: none;
-            appearance: none;
             -webkit-appearance: none;
             cursor: pointer;
         }
@@ -244,14 +239,14 @@
 <body class="bg-gradient-to-br from-pink-100 via-purple-50 to-blue-100 min-h-screen font-sans">
 
     <!-- Background Music -->
-    <audio id="bgMusic" loop playsinline preload="auto">
-        <source src="./春日影 - From THE FIRST TAKE [C3JSaR0kiRI].mp3" type="audio/mpeg">
+    <audio id="bgMusic" autoplay loop>
+        <source src="春日影 - From THE FIRST TAKE [C3JSaR0kiRI].mp3" type="audio/mpeg">
     </audio>
 
     <!-- Music Controls -->
     <div class="music-controls">
-        <button id="playPauseBtn" class="music-btn" title="播放/暫停" aria-label="播放/暫停">
-            <span id="playIcon">▶</span>
+        <button id="playPauseBtn" class="music-btn" title="播放/暫停">
+            ⏸
         </button>
         <div class="volume-control">
             <span class="volume-icon">🔊</span>
@@ -333,81 +328,6 @@
                 <li>會看到一組「抽選碼」與「網址」</li>
             </ul>
             <p>建議直接使用該網址或掃碼進入，不要自行進入 eplus 搜尋場次，以免選擇錯誤場次。</p>
-
-        </div>
-    </main>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const audio = document.getElementById('bgMusic');
-            const btn = document.getElementById('playPauseBtn');
-            const playIcon = document.getElementById('playIcon');
-            const slider = document.getElementById('volumeSlider');
-
-            console.log('Elements found:', {audio: !!audio, btn: !!btn, playIcon: !!playIcon});
-
-            if (!audio || !btn || !playIcon) {
-                console.error('Required elements not found');
-                return;
-            }
-
-            // 設定音量
-            if (slider) {
-                audio.volume = 0.7;
-                slider.addEventListener('input', () => {
-                    audio.volume = Number(slider.value) / 100;
-                });
-            }
-
-            // 更新按鈕圖示
-            const updateBtn = () => {
-                const isPaused = audio.paused;
-                playIcon.innerHTML = isPaused ? '▶' : '⏸';
-                btn.setAttribute('data-playing', String(!isPaused));
-            };
-
-            // 監聽播放狀態變化
-            audio.addEventListener('play', () => {
-                console.log('▶ Play event');
-                updateBtn();
-            });
-
-            audio.addEventListener('pause', () => {
-                console.log('⏸ Pause event');
-                updateBtn();
-            });
-
-            audio.addEventListener('error', (e) => {
-                console.error('Audio error:', e);
-            });
-
-            audio.addEventListener('canplay', () => {
-                console.log('Audio ready to play');
-            });
-
-            // 播放/暫停切換
-            btn.addEventListener('click', () => {
-                console.log('🖱 Button clicked, paused:', audio.paused);
-
-                if (audio.paused) {
-                    audio.play()
-                        .then(() => console.log('✓ Play started'))
-                        .catch(err => console.error('✗ Play failed:', err));
-                } else {
-                    audio.pause();
-                    console.log('⏸ Paused');
-                }
-            });
-
-            // 初始狀態
-            updateBtn();
-
-            // 嘗試自動播放（通常會被阻擋）
-            audio.play()
-                .then(() => console.log('🎵 Autoplay succeeded'))
-                .catch(() => console.log('🔇 Autoplay blocked - click to play'));
-        });
-    </script>
 
 </body>
 </html>
