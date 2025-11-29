@@ -55,6 +55,34 @@
             scroll-margin-top: 6rem
         }
 
+        /* Fixed TOC sidebar */
+        aside.toc-sidebar {
+            position: fixed;
+            left: max(1.5rem, calc((100vw - 1920px) / 2));
+            top: 6rem;
+            width: 320px;
+            max-height: calc(100vh - 8rem);
+            overflow-y: auto;
+        }
+
+        @media (min-width: 1024px) {
+            .content-with-toc {
+                margin-left: 360px;
+                margin-right: 2rem;
+                max-width: calc(100vw - 400px);
+            }
+
+            .content-with-toc article {
+                max-width: 1200px;
+            }
+        }
+
+        @media (max-width: 1023px) {
+            aside.toc-sidebar {
+                display: none !important;
+            }
+        }
+
         .docx-clean * {
             font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Noto Sans, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji"
         }
@@ -353,14 +381,14 @@
                     <nav id="tocMobile" class="space-y-2 text-sm"></nav>
                 </div>
             </div>
-            <div class="grid grid-cols-1 lg:grid-cols-[320px_minmax(0,1fr)] gap-8 max-w-[1920px] mx-auto">
-                <aside class="hidden lg:block">
-                    <div class="sticky top-24 max-h-[85vh] overflow-auto border-2 border-amber-200 rounded-xl p-5 bg-gradient-to-br from-amber-50/90 via-orange-50/90 to-yellow-50/90 backdrop-blur shadow-lg"
-                        style="background: linear-gradient(135deg, rgba(254, 249, 243, 0.9) 0%, rgba(255, 248, 240, 0.9) 50%, rgba(254, 252, 245, 0.9) 100%);">
-                        <div class="text-sm font-bold text-pink-600 mb-3">📑 目錄導覽</div>
-                        <nav id="toc" class="space-y-1 text-sm"></nav>
-                    </div>
-                </aside>
+            <aside class="hidden lg:block toc-sidebar" style="z-index: 20;">
+                <div class="border-2 border-amber-200 rounded-xl p-5 bg-gradient-to-br from-amber-50/90 via-orange-50/90 to-yellow-50/90 backdrop-blur shadow-lg"
+                    style="background: linear-gradient(135deg, rgba(254, 249, 243, 0.9) 0%, rgba(255, 248, 240, 0.9) 50%, rgba(254, 252, 245, 0.9) 100%);">
+                    <div class="text-sm font-bold text-pink-600 mb-3">📑 目錄導覽</div>
+                    <nav id="toc" class="space-y-1 text-sm"></nav>
+                </div>
+            </aside>
+            <div class="content-with-toc w-full">
                 <article
                     class="prose prose-lg prose-gray docx-clean bg-gradient-to-br from-amber-50/95 via-orange-50/95 to-yellow-50/95 backdrop-blur rounded-2xl shadow-xl p-8 lg:p-16 max-w-none"
                     style="background: linear-gradient(135deg, rgba(254, 249, 243, 0.95) 0%, rgba(255, 248, 240, 0.95) 50%, rgba(254, 252, 245, 0.95) 100%);">
@@ -513,23 +541,6 @@
                         <span><br>&#32178;&#22336;&#19979;&#26041;&#23601;&#26159;&#25277;&#36984;&#30908;(&#12471;&#12522;&#12450;&#12523;&#12490;&#12531;&#12496;&#12540;)&#65292;&#36914;&#20837;&#32178;&#31449;&#24460;&#38656;&#35201;&#36664;&#20837;&#25277;&#36984;&#30908;&#12290;</span><span
                             class="c1">&#19981;&#24314;&#35696;&#36914;&#20837;eplus&#35041;&#25214;&#20320;&#35201;&#21435;&#30340;&#22580;&#20877;&#25277;</span><span
                             class="c0">&#65292;&#32780;&#26159;&#30452;&#25509;&#29992;&#36889;&#20491;&#32178;&#31449;&#25110;&#32773;&#25475;QR&#36914;&#21435;</span>
-                    </p>
-                    <!-- Unified image block layout to remove blank cropped space -->
-                    <p class="c42" style="margin:0 0 24px 0;">
-                        <img src="images/image23.png" alt=""
-                            style="display:block; width:446px; height:auto; border-radius:4px; box-shadow:0 2px 6px rgba(0,0,0,0.12);">
-                    </p>
-                    <p class="c42" style="margin:0 0 24px 0;">
-                        <img src="images/image28.png" alt=""
-                            style="display:block; width:446px; height:auto; border-radius:4px; box-shadow:0 2px 6px rgba(0,0,0,0.12);">
-                    </p>
-                    <p class="c42" style="margin:0 0 24px 0;">
-                        <img src="images/image29.png" alt=""
-                            style="display:block; width:446px; height:auto; border-radius:4px; box-shadow:0 2px 6px rgba(0,0,0,0.12);">
-                    </p>
-                    <p class="c42" style="margin:0 0 24px 0;">
-                        <img src="images/image21.png" alt=""
-                            style="display:block; width:446px; height:auto; border-radius:4px; box-shadow:0 2px 6px rgba(0,0,0,0.12);">
                     </p>
                     <span>&#19968;&#20491;&#24115;&#34399;&#20351;&#29992;&#22810;&#24373;&#25277;&#36984;&#21048;&#21482;&#26371;&#22686;&#21152;&#25277;&#20013;&#27010;&#29575;&#12290;</span><span
                         class="c1">&#22914;&#26524;&#38656;&#35201;&#26356;&#22810;&#24373;&#31080;&#38656;&#35201;&#22810;&#20491;&#24115;&#34399;</span><span
@@ -1705,18 +1716,6 @@
                     <table class="c79">
                         <tr class="c44">
                             <td class="c62" colspan="1" rowspan="1">
-                                <p class="c42" style="margin:0 0 24px 0;">
-                                    <img src="images/image19.png" alt=""
-                                        style="display:block; width:446px; height:auto; border-radius:4px; box-shadow:0 2px 6px rgba(0,0,0,0.12);">
-                                </p>
-                            </td>
-                        </tr>
-                        <tr class="c44">
-                            <td class="c62" colspan="1" rowspan="1">
-                                <p class="c42" style="margin:0 0 24px 0;">
-                                    <img src="images/image23.png" alt=""
-                                        style="display:block; width:446px; height:auto; border-radius:4px; box-shadow:0 2px 6px rgba(0,0,0,0.12);">
-                                </p>
                                 <!-- Adjusted: show image28 and image29 similar to image21 without hidden crop -->
                                 <p class="c42" style="margin:0 0 16px 0;">
                                     <img src="images/image28.png" alt="image28"
@@ -2063,17 +2062,18 @@
                     </div>
                 </article>
             </div>
-        </main>
-        <footer class="border-t-2 border-amber-200 mt-12 bg-white/80 backdrop-blur"
-            style="background: rgba(255, 252, 248, 0.8);">
-            <div class="w-full max-w-[1920px] mx-auto px-6 py-8 text-center">
-                <div
-                    class="text-lg font-bold bg-gradient-to-r from-pink-500 to-purple-600 bg-clip-text text-transparent mb-2">
-                    🎵 AnonTaiwan
-                </div>
-                <div class="text-sm text-gray-600">現地 Live 攻略 • 讓每場演唱會都成為美好回憶</div>
+    </div>
+    </main>
+    <footer class="border-t-2 border-amber-200 mt-12 bg-white/80 backdrop-blur"
+        style="background: rgba(255, 252, 248, 0.8);">
+        <div class="w-full max-w-[1920px] mx-auto px-6 py-8 text-center">
+            <div
+                class="text-lg font-bold bg-gradient-to-r from-pink-500 to-purple-600 bg-clip-text text-transparent mb-2">
+                🎵 AnonTaiwan
             </div>
-        </footer>
+            <div class="text-sm text-gray-600">現地 Live 攻略 • 讓每場演唱會都成為美好回憶</div>
+        </div>
+    </footer>
     </div>
     <script>
         (function () {
